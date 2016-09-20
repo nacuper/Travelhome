@@ -1,5 +1,8 @@
 daemon off;
 
+
+
+server {
 upstream us1 {
 	server www.elsonar.com.ar:80;
 }
@@ -12,7 +15,6 @@ upstream us4 {
 	server www.travelclub.cl;
 }
 
-server {
 	listen <%= ENV['PORT'] %> default_server;
 	listen [::]:80 default_server ipv6only=on;
 
