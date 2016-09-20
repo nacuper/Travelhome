@@ -1,0 +1,39 @@
+upstream us1 {
+	server www.elsonar.com.ar:80;
+}
+
+upstream us2 {
+	server www.grayshirts.com.ar:80;
+}
+
+upstream us4 {
+	server www.travelclub.cl;
+}
+
+server {
+	listen <%= ENV['PORT'] %> default_server;
+	listen [::]:80 default_server ipv6only=on;
+
+	root /usr/share/nginx/html;
+	index index.html index.htm;
+
+	# Make site accessible from http://localhost/
+	server_name localhost;
+
+	location / {
+		rewrite ^/$ /tienda/  break;
+		proxy_set_header Host www.travelclub.cl;
+		proxy_pass http://us4; 
+	}
+
+	location /* {
+		proxy_set_header Host www.travelclub.cl;
+		proxy_pass http://us4; 
+	}
+
+	#location /* {
+	#	rewrite /elsonar(.*) /$1  break;
+	#	proxy_set_header Host www.elsonar.com.ar;
+	#	proxy_pass http://us1; 
+	#}
+}
