@@ -54,8 +54,8 @@ http {
 	}
 
 	server {
-		listen <%= ENV['PORT'] %> default_server;
-		listen [::]:<%= ENV['PORT'] %> default_server ipv6only=on;
+		listen <%= ENV['PORT'] %>;
+		listen [::]:<%= ENV['PORT'] %> ipv6only=on;
 		server_name viajes-test.travel.cl;
 		
 		location /hoteles {
