@@ -1,7 +1,7 @@
 daemon off;
 
 events {
-  worker_connections  4096;  ## Default: 1024
+	worker_connections  4096;  ## Default: 1024
 }
 
 http {
@@ -21,6 +21,22 @@ http {
 
 	upstream us_latercera {
 		server latercera.herokuapp.com;
+	}
+
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name viajes-test.travel.cl;
+		
+		location /hoteles {
+			rewrite /hoteles /agency/hoteles  break;
+			proxy_set_header Host travelclub-assistcard-test.herokuapp.com;
+			proxy_pass http://us_travelclub-assistcard-test; 
+		}
+
+		location /* {
+			proxy_set_header Host viajes.travel.cl;
+			proxy_pass http://us_latercera; 
+		}
 	}
 
 	server {
@@ -50,22 +66,6 @@ http {
 			rewrite ^/$ /tienda/  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub; 
-		}
-	}
-
-	server {
-		listen <%= ENV['PORT'] %>;
-		server_name viajes-test.travel.cl;
-		
-		location /hoteles {
-			rewrite /hoteles /agency/hoteles  break;
-			proxy_set_header Host travelclub-assistcard-test.herokuapp.com;
-			proxy_pass http://us_travelclub-assistcard-test; 
-		}
-
-		location /* {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_latercera; 
 		}
 	}
 }
