@@ -36,7 +36,17 @@ http {
 			proxy_pass http://us_hoteles; 
 		}
 		
-		location /_?_?lib {
+		location /__libFx {
+			proxy_set_header Host viajes.travel.cl;
+			proxy_pass http://us_hoteles; 
+		}
+		
+		location /_lib {
+			proxy_set_header Host viajes.travel.cl;
+			proxy_pass http://us_hoteles; 
+		}
+		
+		location /lib {
 			proxy_set_header Host viajes.travel.cl;
 			proxy_pass http://us_hoteles; 
 		}
