@@ -105,17 +105,17 @@ http {
 			proxy_pass http://us_travelclub;
 		}
  
+        location = / {
+			rewrite ^/$ /traveltienda/  break;
+			proxy_set_header Host www.travelclub.cl;
+			proxy_pass http://us_travelclub; 
+		}
+
 		location /* {
 			rewrite /(.*) /traveltienda/$1  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub; 
 		}
-
-        #location / {
-		#	rewrite ^/$ /traveltienda/  break;
-		#	proxy_set_header Host www.travelclub.cl;
-		#	proxy_pass http://us_travelclub; 
-		#}
 	}
 
 	server {
