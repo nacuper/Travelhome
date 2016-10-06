@@ -100,13 +100,7 @@ http {
 			proxy_pass http://us_travelclub;
 		}
 
-		location /producto {
-			rewrite /(.*) /traveltienda/$1  break;
-			proxy_set_header Host www.travelclub.cl;
-			proxy_pass http://us_travelclub;
-		}
-                         
-		location /upload/producto {
+		location /upload {
 			rewrite /(.*) /$1  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub;
