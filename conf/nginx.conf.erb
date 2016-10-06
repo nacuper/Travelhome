@@ -90,6 +90,52 @@ http {
 	}
 
 	server {
+		listen <%= ENV['PORT'] %>;
+		server_name tienda.travel.cl;
+		
+		location /producto {
+			rewrite /(.*) /traveltienda/$1  break;
+			proxy_set_header Host www.travelclub.cl;
+			proxy_pass http://us_travelclub;
+		}
+                         
+		location /upload/producto {
+			rewrite /(.*) /traveltienda/$1  break;
+			proxy_set_header Host www.travelclub.cl;
+			proxy_pass http://us_travelclub;
+		}
+ 
+        location / {
+			rewrite ^/$ /traveltienda/  break;
+			proxy_set_header Host www.travelclub.cl;
+			proxy_pass http://us_travelclub; 
+		}
+	}
+
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name duty.travel.cl;
+		
+		location /producto {
+			rewrite /(.*) /tienda/$1  break;
+			proxy_set_header Host www.travelclub.cl;
+			proxy_pass http://us_travelclub;
+		}
+                         
+		location /img {
+			rewrite /(.*) /tienda/$1  break;
+			proxy_set_header Host www.travelclub.cl;
+			proxy_pass http://us_travelclub;
+		}
+ 
+        location / {
+			rewrite ^/$ /tienda/  break;
+			proxy_set_header Host www.travelclub.cl;
+			proxy_pass http://us_travelclub; 
+		}
+	}
+
+	server {
 		listen <%= ENV['PORT'] %> default_server;
 		listen [::]:<%= ENV['PORT'] %> default_server ipv6only=on;
 		server_name travelclub-nginx.herokuapp.com;
