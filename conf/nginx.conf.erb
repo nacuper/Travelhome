@@ -8,7 +8,8 @@ http {
 	include    mime.types;
 
 	upstream us_travelclub {
-		server www.travelclub.cl;
+		server 200.14.133.16 weight=2;
+		server 200.14.130.60;
 	}
 
 	upstream us_travelclub-assistcard-test {
