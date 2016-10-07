@@ -111,7 +111,7 @@ http {
 		}
 
 		location /promociones/tag {
-			set $args $args&slugifiedAgency=travelclub;
+			rewrite /promociones/tag/(.*) /travelclub/tag/$1 break;
 			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera; 
 		}
