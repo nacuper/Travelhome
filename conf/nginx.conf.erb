@@ -57,7 +57,7 @@ http {
 		}
 
 		location = /asistencia {
-			rewrite ^/asistencia$ /assist-card break;
+			rewrite ^/asistencia$ /assist-card/travelclub-asistencia break;
 			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera; 
 		}
