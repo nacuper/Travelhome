@@ -24,70 +24,90 @@ http {
 		server 66.234.9.97;
 	}
 
+#	server {
+#		listen <%= ENV['PORT'] %>;
+#		server_name viajes.travel.cl;
+#
+#		location /Hoteles/Lista {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles; 
+#		}
+#	}
+
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
 		
-		location /Hoteles/Lista {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
+		location = / {
+			rewrite ^/$ /agency/travelclub break;
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera; 
 		}
 
-		location /Hoteles/Tarifas {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-				
-		location /__libFx {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-		}
-		
-		location /_lib {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-		}
-		
-		location /lib {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
+		location = /vuelos {
+			rewrite ^/vuelos$ /agency/travelclub break;
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera; 
 		}
 
-		location /_Ajax {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
+		location = /programas {
+			rewrite ^/programas$ /searchHome/travelclub break;
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera; 
 		}
 
-		location /SparksVista {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /Ktravel {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /Reservacion {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /hoteles {
-			rewrite /hoteles /agency/hoteles  break;
-			proxy_set_header Host travelclub-assistcard-test.herokuapp.com;
-			proxy_pass http://us_travelclub-assistcard-test; 
-		}
-
-		location / {
-			proxy_set_header Host viajes.travel.cl;
+		location = /asistencia {
+			rewrite ^/asistencia$ /agency/travelclub-asistencia break;
+			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera; 
 		}
 
 		location /* {
-			proxy_set_header Host viajes.travel.cl;
+			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera; 
 		}
+
+#		location /Hoteles/Lista {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles; 
+#		}
+#		location /Hoteles/Tarifas {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles;
+#		}
+#		location /__libFx {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles; 
+#		}
+#		location /_lib {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles; 
+#		}
+#		location /lib {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles; 
+#		}
+#		location /_Ajax {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles;
+#		}
+#		location /SparksVista {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles;
+#		}
+#		location /Ktravel {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles;
+#		}
+#		location /Reservacion {
+#			proxy_set_header Host viajes.travel.cl;
+#			proxy_pass http://us_hoteles;
+#		}
+#		location /hoteles {
+#			rewrite /hoteles /agency/hoteles  break;
+#			proxy_set_header Host travelclub-assistcard-test.herokuapp.com;
+#			proxy_pass http://us_travelclub-assistcard-test; 
+#		}
 	}
 
 	server {
