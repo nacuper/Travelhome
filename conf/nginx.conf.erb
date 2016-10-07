@@ -37,6 +37,7 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
+		port_in_redirect off;
 		
 		location = / {
 			rewrite ^/$ /agency/travelclub break;
