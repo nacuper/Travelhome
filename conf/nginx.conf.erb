@@ -60,11 +60,13 @@ http {
 			rewrite ^/asistencia$ /assist-card/travelclub-asistencia break;
 			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera; 
+			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
 
 		location / {
 			proxy_set_header Host latercera.herokuapp.com;
-			proxy_pass http://us_latercera; 
+			proxy_pass http://us_latercera;
+			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
 
 #		location /Hoteles/Lista {
