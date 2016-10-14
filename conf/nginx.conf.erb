@@ -31,12 +31,12 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Host $host;
+		proxy_set_header X-Test yesi;
 
 		location /test {
 			rewrite /test/(.*) /$1 break;
-			proxy_set_header X-Forwarded-For 1.1.1.1;
-			proxy_set_header X-Forwarded-Host $host;
-			proxy_set_header X-Test yess;
 			proxy_set_header Host requestb.in;
 			proxy_pass http://us_test; 
 		}
