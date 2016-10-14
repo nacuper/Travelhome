@@ -34,9 +34,9 @@ http {
 
 		location /test {
 			rewrite /test/(.*) /$1 break;
-			proxy_set_header X-Forwarded-For $remote_addr;
+			proxy_set_header X-Forwarded-For 1.1.1.1;
 			proxy_set_header X-Forwarded-Host $host;
-			proxy_set_header X-Test yes;
+			proxy_set_header X-Test yess;
 			proxy_set_header Host requestb.in;
 			proxy_pass http://us_test; 
 		}
