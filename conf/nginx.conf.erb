@@ -24,11 +24,20 @@ http {
 		server 66.234.9.97;
 	}
 
+	upstream us_test {
+		server requestb.in;
+	}
+
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
 		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 		proxy_set_header X-Forwarded-Host $host;
+
+		location /test {
+			proxy_set_header Host requestb.in;
+			proxy_pass http://us_test; 
+		}
 
 		location /Hoteles/Lista {
 			proxy_set_header Host viajes.travel.cl;
