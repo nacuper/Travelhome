@@ -27,6 +27,8 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
+		proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+		proxy_set_header X-Forwarded-Host $host;
 
 		location /Hoteles/Lista {
 			proxy_set_header Host viajes.travel.cl;
