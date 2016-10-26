@@ -224,6 +224,12 @@ http {
 			proxy_pass http://us_apishopper;
 			proxy_redirect http://apishopper.herokuapp.com/ /travelpay/;
 		}
+
+		location /admin {
+			proxy_set_header Host apishopper.herokuapp.com;
+			proxy_pass http://us_apishopper;
+			proxy_redirect http://apishopper.herokuapp.com/ /travelpay/;
+		}
 	}
 
 	server {
