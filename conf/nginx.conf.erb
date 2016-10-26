@@ -24,6 +24,10 @@ http {
 		server 66.234.9.97;
 	}
 
+	upstream us_apishopper {
+		server apishopper.herokuapp.com;
+	}
+
 	upstream us_test {
 		server httpbin.org;
 	}
@@ -194,6 +198,18 @@ http {
 			rewrite ^/$ /tienda/  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub; 
+		}
+	}
+
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name backoffice.travel.cl;
+		
+		location /travelpay {
+			rewrite /travelpay/(.*) /$1  break;
+			proxy_set_header Host apishopper.herokuapp.com;
+			proxy_pass http://us_apishopper;
+			proxy_redirect http://apishopper.herokuapp.com/ /;
 		}
 	}
 
