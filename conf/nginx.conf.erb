@@ -199,6 +199,7 @@ http {
 		}
  
 		location /catalogos/especial_navidad_duty {
+			rewrite /catalogos/especial_navidad_duty /especial_navidad_duty break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
 			proxy_pass http://us_catalogo;
 		}
