@@ -28,6 +28,10 @@ http {
 		server apishopper.herokuapp.com;
 	}
 
+	upstream us_catalogo {
+		server travelclub-catalogo.herokuapp.com;
+	}
+
 	upstream us_test {
 		server httpbin.org;
 	}
@@ -194,6 +198,11 @@ http {
 			proxy_pass http://us_travelclub;
 		}
  
+		location /catalogos/especial_navidad_duty {
+			proxy_set_header Host travelclub-catalogo.herokuapp.com;
+			proxy_pass http://us_catalogo;
+		}
+
         location / {
 			rewrite ^/$ /tienda/  break;
 			proxy_set_header Host www.travelclub.cl;
