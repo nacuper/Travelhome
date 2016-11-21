@@ -203,7 +203,7 @@ http {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
 			proxy_pass http://us_catalogo;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_navidad_duty/ /catalogos/especial_navidad_duty/";
+			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_navidad_duty/ /catalogos/especial_navidad_duty/;
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
 
