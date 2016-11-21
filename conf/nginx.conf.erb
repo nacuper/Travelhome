@@ -185,6 +185,7 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name duty.travel.cl;
+		port_in_redirect off;
 		
 		location /producto {
 			rewrite /(.*) /tienda/$1  break;
