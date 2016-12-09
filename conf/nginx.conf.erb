@@ -156,6 +156,7 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name tienda.travel.cl;
+		port_in_redirect off;
 		
 		location /traveltienda {
 			rewrite /traveltienda/(.*) /traveltienda/$1  break;
