@@ -125,7 +125,7 @@ http {
 			proxy_pass http://us_latercera; 
 		}
 
-		location /vuelos/vol {
+		location ~* ^/vuelos/vol {
 			rewrite /vuelos/vol/(.*) /vuelos/$1 break;
 			proxy_pass http://us_vol2; 
 		}
