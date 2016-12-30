@@ -32,6 +32,10 @@ http {
 		server travelclub-catalogo.herokuapp.com;
 	}
 
+	upstream us_vol2 {
+		server 190.98.204.156;
+	}
+
 	upstream us_test {
 		server httpbin.org;
 	}
@@ -119,6 +123,11 @@ http {
 			rewrite ^/$ /agency/travelclub break;
 			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera; 
+		}
+
+		location = /vuelos/vol {
+			rewrite /vuelos/vol/(.*) /vuelos/$1 break;
+			proxy_pass http://us_vol2; 
 		}
 
 		location = /vuelos {
