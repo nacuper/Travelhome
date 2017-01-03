@@ -125,6 +125,14 @@ http {
 			proxy_pass http://us_latercera; 
 		}
 
+		location ~* ^/Vuelos/WebResource {
+			proxy_pass http://us_vol2; 
+		}
+
+		location ~* ^/Vuelos/ScriptResource {
+			proxy_pass http://us_vol2; 
+		}
+
 		location ~* ^/vuelos/vol {
 			rewrite /vuelos/vol/(.*) /vuelos/$1 break;
 			proxy_pass http://us_vol2; 
