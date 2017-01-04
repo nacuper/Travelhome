@@ -144,6 +144,7 @@ http {
 		}
 
 		location /vuelos/Ofertas  {
+			rewrite ^/vuelos/Ofertas$ / break;
 			rewrite ^/vuelos/Ofertas/(.*) /$1 break;
 			proxy_set_header Host travelclub-flights.herokuapp.com;
 			proxy_pass http://us_vol2_heroku; 
