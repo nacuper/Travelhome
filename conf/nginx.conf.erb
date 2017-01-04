@@ -36,6 +36,10 @@ http {
 		server 190.98.204.156;
 	}
 
+	upstream us_vol2_heroku {
+		server travelclub-flights.herokuapp.com;
+	}
+
 	upstream us_test {
 		server httpbin.org;
 	}
@@ -137,6 +141,12 @@ http {
 			rewrite /vuelos/vol/(.*) /vuelos/$1 break;
 			proxy_pass http://us_vol2; 
 			proxy_redirect /vuelos/ /vuelos/vol/;
+		}
+
+		location /vuelos/Ofertas  {
+			rewrite ^/vuelos/Ofertas$ /vuelos/Ofertas/searchController/index break;
+			proxy_set_header Host travelclub-flights.herokuapp.com;
+			proxy_pass http://us_vol2_heroku; 
 		}
 
 		location = /vuelos {
