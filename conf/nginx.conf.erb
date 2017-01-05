@@ -143,6 +143,12 @@ http {
 			proxy_redirect /vuelos/ /vuelos/vol/;
 		}
 
+		location ~* ^/vuelos/web {
+			rewrite /vuelos/web/(.*) /vuelos/web/$1 break;
+			proxy_pass http://us_vol2; 
+			proxy_redirect /vuelos/ /vuelos/web/;
+		}
+
 		location /vuelos/Ofertas  {
 			rewrite ^/vuelos/Ofertas$ / break;
 			rewrite ^/vuelos/Ofertas/(.*) /$1 break;
