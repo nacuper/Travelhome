@@ -205,11 +205,11 @@ http {
 			proxy_pass http://us_travelclub;
 		}
  
-		location /catalogos/especial_navidad_tienda {
+		location /catalogos/especial_apple_tienda {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
 			proxy_pass http://us_catalogo;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_navidad_tienda/ /catalogos/especial_navidad_tienda/;
+			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_apple_tienda/ /catalogos/especial_apple_tienda/;
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
 
@@ -250,14 +250,6 @@ http {
 			proxy_pass http://us_travelclub;
 		}
  
-		location /catalogos/especial_navidad_duty {
-			rewrite /catalogos/(.*) /$1 break;
-			proxy_set_header Host travelclub-catalogo.herokuapp.com;
-			proxy_pass http://us_catalogo;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_navidad_duty/ /catalogos/especial_navidad_duty/;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
-		}
-
 		location /catalogos/general {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
