@@ -1,0 +1,11 @@
+machine:
+    timezone:
+        America/Santiago # Set the timezone    
+test:
+    override:
+    - echo "No Test"
+deployment:    
+    production:
+        branch: master
+        heroku:
+            appname: travelclub-nginx
