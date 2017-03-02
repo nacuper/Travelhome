@@ -213,14 +213,6 @@ http {
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
 		
-		location /catalogos/especial_herramientas {
-			rewrite /catalogos/(.*) /$1 break;
-			proxy_set_header Host travelclub-catalogo.herokuapp.com;
-			proxy_pass http://us_catalogo;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_herramientas/ /catalogos/especial_herramientas/;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
-		}
-		
 		location /catalogos/general {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
@@ -257,7 +249,15 @@ http {
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub;
 		}
- 
+		
+ 		location /catalogos/especial_herramientas_duty {
+			rewrite /catalogos/(.*) /$1 break;
+			proxy_set_header Host travelclub-catalogo.herokuapp.com;
+			proxy_pass http://us_catalogo;
+			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_herramientas_duty/ /catalogos/especial_herramientas_duty/;
+			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
+		}
+		
 		location /catalogos/general {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
