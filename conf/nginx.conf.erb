@@ -1,4 +1,4 @@
-daemon off;
+	daemon off;
 
 events {
 	worker_connections  4096;  ## Default: 1024
@@ -42,6 +42,10 @@ http {
 
 	upstream us_test {
 		server httpbin.org;
+	}
+
+	upstream us_vol3 {
+		server travelclub-hypertext.herokuapp.com;
 	}
 
 	server {
@@ -179,6 +183,12 @@ http {
 			rewrite /promociones/tag/(.*) /travelclub/tag/$1 break;
 			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera; 
+		}
+
+		location ~* ^/(promociones|checkout|flights|public-vol3|vol3) {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
 		}
 
 		location / {
