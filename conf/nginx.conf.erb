@@ -185,7 +185,7 @@ http {
 			proxy_pass http://us_latercera; 
 		}
 
-		location ~* ^/(promociones|checkout|flights|public-vol3|vol3) {
+		location ~* ^/(promocion|checkout|flights|public-vol3|vol3) {
 			proxy_set_header Host travelclub-hypertext.herokuapp.com;
 			proxy_pass http://us_vol3;
 			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
