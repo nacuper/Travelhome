@@ -59,72 +59,12 @@ http {
 			proxy_set_header Host requestb.in;
 			proxy_pass http://us_test; 
 		}
-		location /Hoteles {
-			rewrite /Hoteles/(.*) /$1 break;
+		location /hoteles {
+			rewrite /hoteles/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/Hoteles;
 			proxy_redirect http://190.98.204.157:8085/ /;			
-		}
-		location /Hoteles/Lista {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-		}
-
-		location /Hoteles/Tarifas {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /__libFx {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-		}
-
-		location /_lib {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-		}
-
-		location /lib {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-		}
-
-		location /_Ajax {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /SparksVista {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /Ktravel {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /Reservacion {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles;
-		}
-
-		location /Reservacion/Pasajeros? {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-        }
- 
-        location /Reservacion/FormaPago? {
-			proxy_set_header Host viajes.travel.cl;
-			proxy_pass http://us_hoteles; 
-        }
-
-		location /hoteles {
-			rewrite /hoteles /agency/hoteles  break;
-			proxy_set_header Host travelclub-assistcard-test.herokuapp.com;
-			proxy_pass http://us_travelclub-assistcard-test; 
 		}
 	}
 
