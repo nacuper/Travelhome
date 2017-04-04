@@ -66,9 +66,6 @@ http {
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/Hoteles;
 			proxy_redirect http://190.98.204.157:8085/ /;			
 		}
-		location /Content {
-			proxy_pass http://190.98.204.157:8085/ /; 
-		}
 	}
 
 	server {
