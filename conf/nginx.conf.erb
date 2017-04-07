@@ -51,6 +51,14 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
+
+		location / {
+			rewrite /(.*) /$1 break;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Host $host;
+			proxy_set_header Host requestb.in;
+			proxy_pass http://us_hoteles;
+		}
 		location /test {
 			rewrite /test/(.*) /$1 break;
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
@@ -59,17 +67,11 @@ http {
 			proxy_pass http://us_test;
 		}
 		location /hoteles {
-			rewrite /hoteles/(.*) /$1 break;
+		 	rewrite /hoteles/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
+		//	proxy_pass http://us_hoteles;
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/Hoteles;
-			proxy_redirect http://190.98.204.157:8085/ /;
-		}
-		location /Content {
-			rewrite /Content/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/Content /viajes-test.travel.cl/Content;
+		//	proxy_redirect http://190.98.204.157:8085/ /;
 		}
 	}
 
