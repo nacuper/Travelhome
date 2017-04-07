@@ -62,10 +62,9 @@ http {
 		}
 
 		location /hoteles {
-			rewrite /hoteles /hoteles/ break;
 			rewrite /hoteles/(.*) /$1 break;
 			proxy_pass http://us_hoteles;
-			proxy_redirect /hoteles http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0;
+			proxy_redirect /hoteles/ http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0;
 		}
 
 		location /test {
