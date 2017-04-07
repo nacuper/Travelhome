@@ -69,14 +69,12 @@ http {
 		location /Contudo {
 			rewrite /Contudo/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/Conteudo /viajes-test.travel.cl/Conteudo;
+			proxy_pass http://us_hoteles/Conteudo;
 		}
 		location /Content {
 			rewrite /Content/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/Content /viajes-test.travel.cl/Content;
+			proxy_pass http://us_hoteles/Content;
 		}
 		location /Javascript {
 			rewrite /Javascript/(.*) /$1 break;
