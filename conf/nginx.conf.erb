@@ -57,16 +57,13 @@ http {
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 			proxy_set_header X-Forwarded-Host $host;
 			proxy_set_header Host viajes-test.travel.cl;
-			proxy_pass http://us_hoteles;
-
+			proxy_redirect http://us_hoteles/ /;
 		}
 		location /hoteles {
 			rewrite /hoteles/(.*) /$1 break;
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 			proxy_set_header X-Forwarded-Host $host;
 			proxy_set_header Host viajes-test.travel.cl;
-
-			#proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/hoteles;
 			proxy_redirect / http://us_hoteles;
