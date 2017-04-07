@@ -73,6 +73,8 @@ http {
 			proxy_set_header X-Forwarded-Host $host;
 			proxy_set_header Host requestb.in;
 			proxy_pass http://us_hoteles;
+			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/Hoteles;
+			proxy_redirect http://190.98.204.157:8085/ /;
 		}
 	}
 
