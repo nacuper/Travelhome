@@ -70,8 +70,6 @@ http {
 			rewrite /Content/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/Content /Content;
-			proxy_redirect http://190.98.204.157:8085/ /;
 		}
 		location /Javascript {
 			rewrite /Javascript/(.*) /$1 break;
