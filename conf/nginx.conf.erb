@@ -61,7 +61,7 @@ http {
 
 		}
 		location /hoteles {
-			rewrite / /Pesquisa/Ofertas#lodge/0;
+			rewrite / /Pesquisa/Ofertas;
 		}
 		location /test {
 			rewrite /test/(.*) /$1 break;
