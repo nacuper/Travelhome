@@ -57,14 +57,54 @@ http {
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 			proxy_set_header X-Forwarded-Host $host;
 			proxy_set_header Host requestb.in;
-			proxy_pass http://us_test; 
+			proxy_pass http://us_test;
 		}
 		location /hoteles {
 			rewrite /hoteles/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/Hoteles;
-			proxy_redirect http://190.98.204.157:8085/ /;			
+			proxy_redirect http://190.98.204.157:8085/ /;
+		}
+		location /Content {
+			rewrite /Content/(.*) /$1 break;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Host $host;
+			proxy_set_header Host requestb.in;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+		}
+		location /Javascript {
+			rewrite /Javascript/(.*) /$1 break;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Host $host;
+			proxy_set_header Host requestb.in;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+		}
+		location /Scripts {
+			rewrite /Scripts/(.*) /$1 break;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Host $host;
+			proxy_set_header Host requestb.in;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+		}
+		location /bundles {
+			rewrite /bundles/(.*) /$1 break;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Host $host;
+			proxy_set_header Host requestb.in;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+		}
+		location /Templates {
+			rewrite /Templates/(.*) /$1 break;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Host $host;
+			proxy_set_header Host requestb.in;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
 		}
 	}
 
@@ -72,30 +112,30 @@ http {
 		listen <%= ENV['PORT'] %>;
 		server_name viajes.travel.cl;
 		port_in_redirect off;
-		
+
 		location = / {
 			rewrite ^/$ /agency/travelclub break;
 			proxy_set_header Host latercera.herokuapp.com;
-			proxy_pass http://us_latercera; 
+			proxy_pass http://us_latercera;
 		}
 
 		location ~* ^/Vuelos/WebResource {
-			proxy_pass http://us_vol2; 
+			proxy_pass http://us_vol2;
 		}
 
 		location ~* ^/Vuelos/ScriptResource {
-			proxy_pass http://us_vol2; 
+			proxy_pass http://us_vol2;
 		}
 
 		location ~* ^/vuelos/vol {
 			rewrite /vuelos/vol/(.*) /vuelos/$1 break;
-			proxy_pass http://us_vol2; 
+			proxy_pass http://us_vol2;
 			proxy_redirect /vuelos/ /vuelos/vol/;
 		}
 
 		location ~* ^/vuelos/web {
 			rewrite /vuelos/web/(.*) /vuelos/web/$1 break;
-			proxy_pass http://us_vol2; 
+			proxy_pass http://us_vol2;
 			proxy_redirect /vuelos/ /vuelos/web/;
 		}
 
@@ -103,32 +143,32 @@ http {
 			rewrite ^/vuelos/Ofertas$ / break;
 			rewrite ^/vuelos/Ofertas/(.*) /$1 break;
 			proxy_set_header Host travelclub-flights.herokuapp.com;
-			proxy_pass http://us_vol2_heroku; 
+			proxy_pass http://us_vol2_heroku;
 		}
 
 		location = /vuelos {
 			rewrite ^/vuelos$ /agency/travelclub break;
 			proxy_set_header Host latercera.herokuapp.com;
-			proxy_pass http://us_latercera; 
+			proxy_pass http://us_latercera;
 		}
 
 		location = /programas {
 			rewrite ^/programas$ /searchHome/travelclub break;
 			proxy_set_header Host latercera.herokuapp.com;
-			proxy_pass http://us_latercera; 
+			proxy_pass http://us_latercera;
 		}
 
 		location = /asistencia {
 			rewrite ^/asistencia$ /assist-card/travelclub-asistencia break;
 			proxy_set_header Host latercera.herokuapp.com;
-			proxy_pass http://us_latercera; 
+			proxy_pass http://us_latercera;
 			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
 
 		location /promociones/tag {
 			rewrite /promociones/tag/(.*) /travelclub/tag/$1 break;
 			proxy_set_header Host latercera.herokuapp.com;
-			proxy_pass http://us_latercera; 
+			proxy_pass http://us_latercera;
 		}
 
 		location /promociones {
@@ -154,7 +194,7 @@ http {
 		listen <%= ENV['PORT'] %>;
 		server_name tienda.travel.cl;
 		port_in_redirect off;
-		
+
 		location /traveltienda {
 			rewrite /traveltienda/(.*) /traveltienda/$1  break;
 			proxy_set_header Host www.travelclub.cl;
@@ -166,7 +206,7 @@ http {
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub;
 		}
- 
+
 		location /catalogos/especial_apple_tienda {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
@@ -174,7 +214,7 @@ http {
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_apple_tienda/ /catalogos/especial_apple_tienda/;
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
-		
+
 		location /catalogos/general {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
@@ -185,13 +225,13 @@ http {
         location = / {
 			rewrite ^/$ /traveltienda/  break;
 			proxy_set_header Host www.travelclub.cl;
-			proxy_pass http://us_travelclub; 
+			proxy_pass http://us_travelclub;
 		}
 
 		location / {
 			rewrite /(.*) /traveltienda/$1  break;
 			proxy_set_header Host www.travelclub.cl;
-			proxy_pass http://us_travelclub; 
+			proxy_pass http://us_travelclub;
 		}
 	}
 
@@ -199,19 +239,19 @@ http {
 		listen <%= ENV['PORT'] %>;
 		server_name duty.travel.cl;
 		port_in_redirect off;
-		
+
 		location /producto {
 			rewrite /(.*) /tienda/$1  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub;
 		}
-                         
+
 		location /img {
 			rewrite /(.*) /tienda/$1  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub;
 		}
-		
+
  		location /catalogos/especial_herramientas_duty {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
@@ -219,7 +259,7 @@ http {
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_herramientas_duty/ /catalogos/especial_herramientas_duty/;
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
-		
+
 		location /catalogos/general {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
@@ -230,7 +270,7 @@ http {
         location / {
 			rewrite ^/$ /tienda/  break;
 			proxy_set_header Host www.travelclub.cl;
-			proxy_pass http://us_travelclub; 
+			proxy_pass http://us_travelclub;
 		}
 	}
 
@@ -238,7 +278,7 @@ http {
 		listen <%= ENV['PORT'] %>;
 		server_name backoffice.travel.cl;
 		port_in_redirect off;
-		
+
 		location /travelpay {
 			rewrite /travelpay/(.*) /$1  break;
 			proxy_set_header Host apishopper.herokuapp.com;
@@ -275,22 +315,22 @@ http {
 		listen <%= ENV['PORT'] %> default_server;
 		listen [::]:<%= ENV['PORT'] %> default_server ipv6only=on;
 		server_name travelclub-nginx.herokuapp.com;
-		
+
 		location /producto {
 			rewrite /(.*) /tienda/$1  break;
 			proxy_set_header Host www.travelclub.cl;
-			proxy_pass http://us_travelclub; 
+			proxy_pass http://us_travelclub;
 		}
 
 		location /* {
 			proxy_set_header Host www.travelclub.cl;
-			proxy_pass http://us_travelclub; 
+			proxy_pass http://us_travelclub;
 		}
 
 		location / {
 			rewrite ^/$ /tienda/  break;
 			proxy_set_header Host www.travelclub.cl;
-			proxy_pass http://us_travelclub; 
+			proxy_pass http://us_travelclub;
 		}
 	}
 }
