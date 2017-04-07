@@ -57,7 +57,6 @@ http {
 			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
 			proxy_set_header X-Forwarded-Host $host;
 			proxy_set_header Host viajes-test.travel.cl;
-			proxy_redirect http://us_hoteles/ /;
 		}
 		location /hoteles {
 			rewrite /hoteles/(.*) /$1 break;
