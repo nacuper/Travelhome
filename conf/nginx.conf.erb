@@ -71,8 +71,10 @@ http {
 			proxy_pass http://us_hoteles;
 		}
 
-		location ~* ^/Content {
-			proxy_pass http://us_hoteles/Content;
+		location /Content {
+			rewrite /Content/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://190.98.204.157:8085/Content;
 		}
 	}
 
