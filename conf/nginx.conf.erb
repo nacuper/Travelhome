@@ -65,6 +65,7 @@ http {
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/hoteles;
+			proxy_redirect http://us_hoteles;
 		}
 		location /test {
 			rewrite /test/(.*) /$1 break;
