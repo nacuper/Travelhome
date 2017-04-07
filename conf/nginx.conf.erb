@@ -71,7 +71,7 @@ http {
 			proxy_pass http://us_hoteles;
 		}
 
-		localtion ~* ^/Content {
+		location ~* ^/Content {
 			proxy_pass http://us_hoteles/Content;
 		}
 	}
