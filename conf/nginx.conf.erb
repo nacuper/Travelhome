@@ -71,31 +71,6 @@ http {
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/Hoteles;
 			proxy_redirect http://190.98.204.157:8085/ /;
 		}
-		location /Conteudo {
-			rewrite /Conteudo/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles/Conteudo;
-		}
-		location /Javascript {
-			rewrite /Javascript/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-		}
-		location /Scripts {
-			rewrite /Scripts/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-		}
-		location /bundles {
-			rewrite /bundles/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-		}
-		location /Templates {
-			rewrite /Templates/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-		}
 	}
 
 	server {
