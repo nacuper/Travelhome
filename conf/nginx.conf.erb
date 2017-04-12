@@ -64,7 +64,16 @@ http {
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
 			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /viajes-test.travel.cl/Hoteles;
-			proxy_redirect http://us_hoteles;			
+			proxy_redirect http://us_hoteles;
+		}
+		location location ~* ^/(Javascript|bundles|Content|Scripts|Templates|api) { {
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+		}
+		location / {
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera;
+			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
 	}
 
