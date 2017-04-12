@@ -48,33 +48,33 @@ http {
 		server travelclub-hypertext.herokuapp.com;
 	}
 
-#	server {
-#		listen <%= ENV['PORT'] %>;
-#		server_name viajes-test.travel.cl;
-#
-#		location /test {
-#			rewrite /test/(.*) /$1 break;
-#			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
-#			proxy_set_header X-Forwarded-Host $host;
-#			proxy_set_header Host requestb.in;
-#			proxy_pass http://us_test; 
-#		}
-#		location /hoteles {
-#			rewrite /hoteles/(.*) /$1 break;
-#			proxy_set_header Host 190.98.204.157:8085;
-#			proxy_pass http://us_hoteles;
-#			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /Hoteles/Pesquisa/Ofertas#lodge/0;
-#		}
-#		location location ~* ^/(Javascript|bundles|Content|Scripts|Templates|api) { {
-#			proxy_set_header Host 190.98.204.157:8085;
-#			proxy_pass http://us_hoteles;
-#		}
-#		location / {
-#			proxy_set_header Host latercera.herokuapp.com;
-#			proxy_pass http://us_latercera;
-#			proxy_redirect http://latercera.herokuapp.com/ /;
-#		}
-#	}
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name viajes-test.travel.cl;
+
+		location /test {
+			rewrite /test/(.*) /$1 break;
+			proxy_set_header X-Forwarded-For $proxy_add_x_forwarded_for;
+			proxy_set_header X-Forwarded-Host $host;
+			proxy_set_header Host requestb.in;
+			proxy_pass http://us_test; 
+		}
+		location /hoteles {
+			rewrite /hoteles/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /Hoteles/Pesquisa/Ofertas#lodge/0;
+		}
+		location location ~* ^/(Javascript|bundles|Content|Scripts|Templates|api) {
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+		}
+		location / {
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera;
+			proxy_redirect http://latercera.herokuapp.com/ /;
+		}
+	}
 
 	server {
 		listen <%= ENV['PORT'] %>;
