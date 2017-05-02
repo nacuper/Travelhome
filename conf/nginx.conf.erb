@@ -212,11 +212,11 @@ http {
 			proxy_pass http://us_travelclub;
 		}
 		
- 		location /catalogos/especial_herramientas_duty {
+ 		location /catalogos/especial_madre_duty/ {
 			rewrite /catalogos/(.*) /$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
 			proxy_pass http://us_catalogo;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_herramientas_duty/ /catalogos/especial_herramientas_duty/;
+			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_madre_duty/ /catalogos/especial_madre_duty/;
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
 		
