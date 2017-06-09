@@ -48,6 +48,14 @@ http {
 		server travelclub-hypertext.herokuapp.com;
 	}
 
+	upstream us_catalogo_padre {
+		server travelclub-catalogo-padre.herokuapp.com;
+	}
+
+	upstream us_catalogo_germany {
+		server travelclub-catalogo-germany.herokuapp.com;
+	}
+
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name hoteles.travel.cl;
@@ -217,6 +225,24 @@ http {
 			rewrite /(.*) /traveltienda/$1  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub; 
+		}
+	}
+
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name catalogos.travel.cl;
+		port_in_redirect off;
+		
+		location /dia-del-padre {
+			rewrite /dia-del-padre/(.*) /$1  break;
+			proxy_set_header Host travelclub-catalogo-padre.herokuapp.com;
+			proxy_pass http://us_catalogo_padre;
+		}
+
+		location /made-in-germany {
+			rewrite /made-in-germany/(.*) /$1  break;
+			proxy_set_header Host travelclub-catalogo-germany.herokuapp.com;
+			proxy_pass http://us_catalogo_germany;
 		}
 	}
 
