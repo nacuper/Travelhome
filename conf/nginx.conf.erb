@@ -69,6 +69,17 @@ http {
 
 	server {
 		listen <%= ENV['PORT'] %>;
+		server_name hoteles.travel.cl;
+
+		location / {
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+			proxy_redirect http://190.98.204.157:8085/ /;
+		}
+	}
+
+	server {
+		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
 
 		location /test {
@@ -263,18 +274,19 @@ http {
 			proxy_pass http://us_travelclub;
 		}
 		
- 		location /catalogos/especial_madre_duty/ {
-			rewrite /catalogos/(.*) /$1 break;
+		location /catalogos/especial_dia_madre {
+			rewrite /catalogos/especial_dia_madre/?(.*) /especial_madre_duty/$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
 			proxy_pass http://us_catalogo;
-			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_madre_duty/ /catalogos/especial_madre_duty/;
+			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_madre_duty/ /catalogos/especial_dia_madre;
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
-		
-		location /catalogos/general {
-			rewrite /catalogos/(.*) /$1 break;
+
+		location /catalogos/ {
+			rewrite /catalogos/(.*) /especial_madre_duty/$1 break;
 			proxy_set_header Host travelclub-catalogo.herokuapp.com;
 			proxy_pass http://us_catalogo;
+			proxy_redirect http://travelclub-catalogo.herokuapp.com/especial_madre_duty/ /catalogos/especial_dia_madre;
 			proxy_redirect http://travelclub-catalogo.herokuapp.com/ /;
 		}
 
