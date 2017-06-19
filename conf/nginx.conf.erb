@@ -55,6 +55,10 @@ http {
 	upstream us_catalogo_germany {
 		server travelclub-catalogo-germany.herokuapp.com;
 	}
+	
+	upstream us_catalogo_bose {
+		server travelclub-catalogo-bose.herokuapp.com;
+	}
 
 	server {
 		listen <%= ENV['PORT'] %>;
@@ -249,6 +253,29 @@ http {
 			proxy_pass http://us_catalogo_padre;
 		}
 	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name catalogos-bose.travel.cl;
+		port_in_redirect off;
+		
+		location / {
+			proxy_set_header Host travelclub-catalogo-bose.herokuapp.com;
+			proxy_pass http://us_catalogo_bose;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name catalogos-made-in-germany.travel.cl;
+		port_in_redirect off;
+		
+		location / {
+			proxy_set_header Host travelclub-catalogo-germany.herokuapp.com;
+			proxy_pass http://us_catalogo_germany;
+		}
+	}
+
 
 	server {
 		listen <%= ENV['PORT'] %>;
