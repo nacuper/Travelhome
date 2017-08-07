@@ -83,6 +83,7 @@ http {
 	}
 
 	server {
+		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
 
@@ -111,6 +112,7 @@ http {
 	}
 
 	server {
+		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
 		server_name viajes.travel.cl;
 		port_in_redirect off;
