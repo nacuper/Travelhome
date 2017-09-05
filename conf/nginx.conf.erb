@@ -65,17 +65,7 @@ http {
 		server_name hoteles.travel.cl;
 
 		location / {
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/ /;
-		}
-	}
-
-	server {
-		listen <%= ENV['PORT'] %>;
-		server_name hoteles.travel.cl;
-
-		location / {
+			add_header Strict-Transport-Security "max-age=31536000";
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
 			proxy_redirect http://190.98.204.157:8085/ /;
