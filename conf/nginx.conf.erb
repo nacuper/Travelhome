@@ -20,10 +20,6 @@ http {
 		server latercera.herokuapp.com;
 	}
 
-	upstream us_hoteles {
-		server 190.98.204.157:8085;
-	}
-
 	upstream us_apishopper {
 		server apishopper.herokuapp.com;
 	}
@@ -59,23 +55,25 @@ http {
 	upstream us_catalogo_bose {
 		server travelclub-catalogo-bose.herokuapp.com;
 	}
-
-	server {
-		listen <%= ENV['PORT'] %>;
-		server_name hoteles.travel.cl;
-
-		location / {
-			add_header Strict-Transport-Security "max-age=31536000";
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/ /;
-		}
+	
+	upstream us_hoteles {
+		server 190.98.204.157:8085;
+	}
+	
+	upstream us_hoteles_test {
+		server 190.98.204.157:8086;
+	}
+		
+	upstream us_proxy_travelpay {
+		server 186.103.204.134:8080;
+		server 186.103.209.194:8080;
 	}
 
 	server {
 		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
 		server_name viajes-test.travel.cl;
+		#return 301 https://$server_name$request_uri
 
 		location /test {
 			rewrite /test/(.*) /$1 break;
@@ -84,12 +82,7 @@ http {
 			proxy_set_header Host requestb.in;
 			proxy_pass http://us_test; 
 		}
-		location /hoteles {
-			rewrite /hoteles/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /Hoteles/Pesquisa/Ofertas#lodge/0;
-		}
+		
 		location ~* ^/(Javascript|bundles|Content|Conteudo|Scripts|Templates|api) {
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
@@ -366,6 +359,49 @@ http {
 			rewrite ^/$ /tienda/  break;
 			proxy_set_header Host www.travelclub.cl;
 			proxy_pass http://us_travelclub; 
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name hoteles.travel.cl;
+		
+		if ($http_x_forwarded_proto != 'https') { 
+			return 301 https://$server_name$request_uri;
+		}
+
+		location / {
+			add_header Strict-Transport-Security "max-age=31536000";
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles;
+			proxy_redirect http://190.98.204.157:8085/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name hoteles-test.travel.cl;
+		
+		if ($http_x_forwarded_proto != 'https') { 
+			return 301 https://$server_name$request_uri;
+		}
+
+		location / {
+			add_header Strict-Transport-Security "max-age=31536000";
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test;
+			proxy_redirect http://190.98.204.157:8086/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name proxy-test.travelpay.cl;
+
+		location / {
+			proxy_set_header Host 186.103.204.134:8080;
+			proxy_pass http://us_proxy_travelpay;
+			proxy_redirect http://186.103.204.134:8080/ /;
 		}
 	}
 }
