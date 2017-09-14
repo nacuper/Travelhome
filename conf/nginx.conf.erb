@@ -82,12 +82,7 @@ http {
 			proxy_set_header Host requestb.in;
 			proxy_pass http://us_test; 
 		}
-		location /hoteles {
-			rewrite /hoteles/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8085;
-			proxy_pass http://us_hoteles;
-			proxy_redirect http://190.98.204.157:8085/Pesquisa/Ofertas#lodge/0 /Hoteles/Pesquisa/Ofertas#lodge/0;
-		}
+		
 		location ~* ^/(Javascript|bundles|Content|Conteudo|Scripts|Templates|api) {
 			proxy_set_header Host 190.98.204.157:8085;
 			proxy_pass http://us_hoteles;
@@ -370,7 +365,7 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name hoteles.travel.cl;
-		#return 301 https://$server_name$request_uri
+		
 		if ($http_x_forwarded_proto != 'https') { 
 			return 301 https://$server_name$request_uri;
 		}
@@ -386,7 +381,7 @@ http {
 	server {
 		listen <%= ENV['PORT'] %>;
 		server_name hoteles-test.travel.cl;
-		#return 301 https://$server_name$request_uri
+		
 		if ($http_x_forwarded_proto != 'https') { 
 			return 301 https://$server_name$request_uri;
 		}
