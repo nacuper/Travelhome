@@ -473,8 +473,8 @@ http {
 		{
 			rewrite /Content/themes/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8086;
-			#proxy_pass http://us_hoteles_test; 
-			proxy_redirect 190.98.204.157:8086
+			proxy_pass http://us_hoteles_test; 
+			
         }
 	}
 	
