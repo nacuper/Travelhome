@@ -393,7 +393,7 @@ http {
 			#proxy_redirect http://190.98.204.157:8086/ /;
 		#}
 
-		#Reglas para Home
+	#Reglas para Home
         location /public {
             proxy_set_header Host latercera.herokuapp.com;
             proxy_pass http://us_latercera;
@@ -406,7 +406,7 @@ http {
             proxy_redirect http://latercera.herokuapp.com/ /;
         }
 		
-		#reglas TFV
+	#Reglas TFV
 		location /apps {
 			rewrite /apps/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8086;
@@ -474,8 +474,7 @@ http {
 			rewrite /Content/themes/(.*) /$1 break;
 			proxy_set_header Host 190.98.204.157:8086;
 			proxy_pass http://us_hoteles_test; 
-			
-        }
+		}
 	}
 	
 	server {
