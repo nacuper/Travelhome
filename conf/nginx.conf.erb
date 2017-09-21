@@ -420,6 +420,61 @@ http {
 			proxy_pass http://us_hoteles_test; 
         }
 		
+		location /api 
+		{
+			rewrite /api/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
+
+		location /GeoAreas/Index 
+		{
+			rewrite /GeoAreas/Index/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
+		
+		location /Detalhes/Hotel 
+		{
+			rewrite /Detalhes/Hotel/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
+		
+		location /bundles/travelclub 
+		{
+			rewrite /bundles/travelclub/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
+		
+		location /Scripts 
+		{
+			rewrite /Scripts/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
+		
+		location /Javascript 
+		{
+			rewrite /Javascript/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
+		
+		location /Conteudo/HTML 
+		{
+			rewrite /Conteudo/HTML/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
+		
+		location /Content/themes 
+		{
+			rewrite /Content/themes/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8086;
+			proxy_pass http://us_hoteles_test; 
+        }
 	}
 	
 	server {
