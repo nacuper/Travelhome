@@ -386,12 +386,33 @@ http {
 			return 301 https://$server_name$request_uri;
 		}
 
+		#location / {
+			#add_header Strict-Transport-Security "max-age=31536000";
+			#proxy_set_header Host 190.98.204.157:8086;
+			#proxy_pass http://us_hoteles_test;
+			#proxy_redirect http://190.98.204.157:8086/ /;
+		#}
+
 		location / {
-			add_header Strict-Transport-Security "max-age=31536000";
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test;
-			proxy_redirect http://190.98.204.157:8086/ /;
-		}
+        	proxy_set_header Host latercera.herokuapp.com;
+            proxy_pass http://us_latercera;
+            proxy_redirect http://latercera.herokuapp.com/ /;
+                 }
+		
+		#reglas TFV
+		location /apps {
+			rewrite /apps/(.*) /$1 break;
+			proxy_set_header Host 190.98.204.157:8085;
+			proxy_pass http://us_hoteles; 
+                 }
+
+		#Reglas para Home
+        location /public {
+            proxy_set_header Host latercera.herokuapp.com;
+            proxy_pass http://us_latercera;
+            proxy_redirect http://latercera.herokuapp.com/ /;
+                 }
+
 	}
 	
 	server {
