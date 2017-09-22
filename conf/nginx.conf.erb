@@ -68,6 +68,11 @@ http {
 		server 186.103.204.134:8080;
 		server 186.103.209.194:8080;
 	}
+	
+	upstream us_loyalty_test_qa {
+		server 186.103.204.133:8010;
+		}
+	
 
 	server {
 		client_max_body_size 20M;
@@ -485,6 +490,16 @@ http {
 			proxy_set_header Host 186.103.204.134:8080;
 			proxy_pass http://us_proxy_travelpay;
 			proxy_redirect http://186.103.204.134:8080/ /;
+		}
+		
+		server {
+		listen <%= ENV['PORT'] %>;
+		server_name loyalty-test.travelpay.cl;
+
+		location / {
+			
+			proxy_pass http://us_loyalty_test_qa;
+			proxy_redirect http://186.103.204.133:8010/ /;
 		}
 	}
 }
