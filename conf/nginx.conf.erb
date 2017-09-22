@@ -68,11 +68,6 @@ http {
 		server 186.103.204.134:8080;
 		server 186.103.209.194:8080;
 	}
-	
-	upstream us_loyalty_test_qa {
-		server 186.103.204.133:8010;
-		}
-	
 
 	server {
 		client_max_body_size 20M;
@@ -391,94 +386,11 @@ http {
 			return 301 https://$server_name$request_uri;
 		}
 
-		#location / {
-			#add_header Strict-Transport-Security "max-age=31536000";
-			#proxy_set_header Host 190.98.204.157:8086;
-			#proxy_pass http://us_hoteles_test;
-			#proxy_redirect http://190.98.204.157:8086/ /;
-		#}
-
-	#Reglas para Home
-        location /public {
-            proxy_set_header Host latercera.herokuapp.com;
-            proxy_pass http://us_latercera;
-            proxy_redirect http://latercera.herokuapp.com/ /;
-        }
-		
 		location / {
-        	proxy_set_header Host latercera.herokuapp.com;
-            proxy_pass http://us_latercera;
-            proxy_redirect http://latercera.herokuapp.com/ /;
-        }
-		
-	#Reglas TFV
-		location /apps {
-			rewrite /apps/(.*) /$1 break;
+			add_header Strict-Transport-Security "max-age=31536000";
 			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /Pesquisa/Ofertas 
-		{
-			rewrite /Pesquisa/Ofertas/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /api 
-		{
-			rewrite /api/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-
-		location /GeoAreas/Index 
-		{
-			rewrite /GeoAreas/Index/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /Detalhes/Hotel 
-		{
-			rewrite /Detalhes/Hotel/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /bundles/travelclub 
-		{
-			rewrite /bundles/travelclub/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /Scripts 
-		{
-			rewrite /Scripts/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /Javascript 
-		{
-			rewrite /Javascript/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /Conteudo/HTML 
-		{
-			rewrite /Conteudo/HTML/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
-        }
-		
-		location /Content/themes 
-		{
-			rewrite /Content/themes/(.*) /$1 break;
-			proxy_set_header Host 190.98.204.157:8086;
-			proxy_pass http://us_hoteles_test; 
+			proxy_pass http://us_hoteles_test;
+			proxy_redirect http://190.98.204.157:8086/ /;
 		}
 	}
 	
@@ -490,16 +402,6 @@ http {
 			proxy_set_header Host 186.103.204.134:8080;
 			proxy_pass http://us_proxy_travelpay;
 			proxy_redirect http://186.103.204.134:8080/ /;
-		}
-		
-		server {
-		listen <%= ENV['PORT'] %>;
-		server_name loyalty-test.travelpay.cl;
-
-		location / {
-			
-			proxy_pass http://us_loyalty_test_qa;
-			proxy_redirect http://186.103.204.133:8010/ /;
 		}
 	}
 }
