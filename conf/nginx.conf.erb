@@ -72,7 +72,12 @@ http {
 	upstream us_loyalty_test {
 		server 186.103.204.133:8010;
 	}
-
+	
+	upstream us_proxy_integrator_test {
+		server 186.103.204.131:8081;
+		server 186.103.204.132:8083;
+	}
+	
 	server {
 		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
@@ -416,6 +421,16 @@ http {
 		location / {
 			proxy_pass http://us_loyalty_test;
 			proxy_redirect http://186.103.204.133:8010/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name proxy-integrator-test.travel.cl;
+
+		location / {
+			proxy_pass http://us_proxy_integrator_test;
+			proxy_redirect http://186.103.204.131:8081/ /;
 		}
 	}
 }
