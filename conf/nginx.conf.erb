@@ -105,6 +105,11 @@ http {
 			proxy_pass http://us_latercera;
 			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
+		location ~* ^/(checkout|flights|public-vol3|vol3) {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+			proxy_pass http://us_vol3_test;
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
 		location /flights {
 			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
 			proxy_pass http://us_vol3_test;
@@ -119,12 +124,7 @@ http {
 			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
 			proxy_pass http://us_vol3_test;
 			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
-		}
-		location ~* ^/(checkout|flights|public-vol3|vol3) {
-			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
-			proxy_pass http://us_vol3_test;
-			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
-		}		
+		}	
 	}
 
 	server {
@@ -213,6 +213,21 @@ http {
 			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera;
 			proxy_redirect http://latercera.herokuapp.com/ /;
+		}
+		location /flights {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
+		}
+		location /public-vol3 {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
+		}
+		location /public {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
 		}
 	}
 
