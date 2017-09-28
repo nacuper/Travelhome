@@ -1,4 +1,4 @@
-	daemon off;
+daemon off;
 
 events {
 	worker_connections  4096;  ## Default: 1024
@@ -68,7 +68,20 @@ http {
 		server 186.103.204.134:8080;
 		server 186.103.209.194:8080;
 	}
-
+	
+	upstream us_loyalty_test {
+		server 186.103.204.133:8010;
+	}
+	
+	upstream us_proxy_integrator_test {
+		server 186.103.204.131:8081;
+		server 186.103.204.132:8083;
+	}
+	
+	upstream us_vol3_test {
+		server travelclub-hypertext-test.herokuapp.com;
+	}
+	
 	server {
 		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
@@ -92,6 +105,26 @@ http {
 			proxy_pass http://us_latercera;
 			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
+		location ~* ^/(checkout|flights|public-vol3|vol3) {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+			proxy_pass http://us_vol3_test;
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
+		location /flights {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+			proxy_pass http://us_vol3_test;
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
+		location /public-vol3 {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+			proxy_pass http://us_vol3_test;
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
+		location /public {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+			proxy_pass http://us_vol3_test;
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}	
 	}
 
 	server {
@@ -180,6 +213,21 @@ http {
 			proxy_set_header Host latercera.herokuapp.com;
 			proxy_pass http://us_latercera;
 			proxy_redirect http://latercera.herokuapp.com/ /;
+		}
+		location /flights {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
+		}
+		location /public-vol3 {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
+		}
+		location /public {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
 		}
 	}
 
@@ -402,6 +450,26 @@ http {
 			proxy_set_header Host 186.103.204.134:8080;
 			proxy_pass http://us_proxy_travelpay;
 			proxy_redirect http://186.103.204.134:8080/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name loyalty-test.travelpay.cl;
+
+		location / {
+			proxy_pass http://us_loyalty_test;
+			proxy_redirect http://186.103.204.133:8010/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name proxy-integrator-test.travel.cl;
+
+		location / {
+			proxy_pass http://us_proxy_integrator_test;
+			proxy_redirect http://186.103.204.131:8081/ /;
 		}
 	}
 }
