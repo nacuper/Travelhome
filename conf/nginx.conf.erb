@@ -101,6 +101,10 @@ http {
 			proxy_pass http://us_latercera;
 			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
+		location /flights {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
 	}
 
 	server {
