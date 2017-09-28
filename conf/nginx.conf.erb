@@ -110,6 +110,11 @@ http {
 			proxy_pass http://us_vol3_test;
 			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
 		}
+		location ~* ^/flights/public-vol3 {
+			rewrite /public-vol3/(.*) /flights/$1 break;
+			proxy_pass http://us_vol3_test; 
+			proxy_redirect /public-vol3/ /flights/public-vol3/;
+		}
 	}
 
 	server {
