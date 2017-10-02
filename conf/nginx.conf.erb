@@ -224,16 +224,6 @@ http {
 			proxy_pass http://us_vol3;
 			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
 		}
-		location /public-vol3 {
-			proxy_set_header Host travelclub-hypertext.herokuapp.com;
-			proxy_pass http://us_vol3;
-			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
-		}
-		location /public {
-			proxy_set_header Host travelclub-hypertext.herokuapp.com;
-			proxy_pass http://us_vol3;
-			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
-		}
 	}
 
 	server {
