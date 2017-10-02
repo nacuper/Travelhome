@@ -1,4 +1,4 @@
-daemon off;
+	daemon off;
 
 events {
 	worker_connections  4096;  ## Default: 1024
@@ -64,9 +64,14 @@ http {
 		server 190.98.204.157:8086;
 	}
 		
-	upstream us_proxy_travelpay {
+	upstream us_proxytest_travelpay {
 		server 186.103.204.134:8080;
 		server 186.103.209.194:8080;
+	}
+	
+	upstream us_proxy_travelpay {
+		server 190.98.204.155:8080;
+		server 86.103.204.133:8081;
 	}
 	
 	upstream us_loyalty_test {
@@ -110,21 +115,21 @@ http {
 			proxy_pass http://us_vol3_test;
 			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
 		}
-		location /flights {
-			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
-			proxy_pass http://us_vol3_test;
-			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
-		}
-		location /public-vol3 {
-			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
-			proxy_pass http://us_vol3_test;
-			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
-		}
-		location /public {
-			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
-			proxy_pass http://us_vol3_test;
-			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
-		}	
+		#location /flights {
+		#	proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+		#	proxy_pass http://us_vol3_test;
+		#	proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		#}
+		#location /public-vol3 {
+		#	proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+		#	proxy_pass http://us_vol3_test;
+		#	proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		#}
+		#location /public {
+		#	proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+		#	proxy_pass http://us_vol3_test;
+		#	proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		#}	
 	}
 
 	server {
@@ -448,8 +453,19 @@ http {
 
 		location / {
 			proxy_set_header Host 186.103.204.134:8080;
-			proxy_pass http://us_proxy_travelpay;
+			proxy_pass http://us_proxytest_travelpay;
 			proxy_redirect http://186.103.204.134:8080/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name proxy.travelpay.cl;
+
+		location / {
+			proxy_set_header Host 190.98.204.155:8080;
+			proxy_pass http://us_proxy_travelpay;
+			proxy_redirect http://190.98.204.155:8080/ /;
 		}
 	}
 	
