@@ -509,7 +509,7 @@ http {
 			proxy_redirect http://travelclub-agencia-test.herokuapp.com/ /;
 		}
 		
-		location ~* ^/(checkout|flights) {
+		location ~* ^/(checkout|flights|public-vol3) {
 			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
 			proxy_pass http://us_vol3_test;
 			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
