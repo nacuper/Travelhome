@@ -498,8 +498,8 @@ http {
 		server_name traveldelta.cl;
 
 		location / {
-			proxy_set_header Host travelclub-agencia-test.herokuapp.com/agency/traveldelta;
 			proxy_pass http://us_traveldelta;
+			proxy_redirect http://travelclub-agencia-test.herokuapp.com/agency/traveldelta/ /;
 		}
 	}
 }
