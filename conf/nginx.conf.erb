@@ -498,11 +498,11 @@ http {
 			proxy_set_header Host travelclub-agencia-test.herokuapp.com;
 			proxy_pass http://us_vol3_test; 
 			
-		location /public {
-			proxy_set_header Host travelclub-agencia-test.herokuapp.com;
+		location ~* ^/(checkout|flights|public) {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
 			proxy_pass http://us_vol3_test;
-			proxy_redirect http://travelclub-agencia-test.herokuapp.com/ /;
-		}	
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
 			
 		}
 	}
