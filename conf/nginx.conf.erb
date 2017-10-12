@@ -88,7 +88,7 @@ http {
 	}
 	
 	upstream us_traveldelta {
-		server travelclub-agencia-test.herokuapp.com/agency/traveldelta;
+		server travelclub-agencia-test.herokuapp.com;
 	}
 	
 	server {
@@ -499,7 +499,7 @@ http {
 
 		location / {
 			proxy_pass http://us_traveldelta;
-			proxy_redirect http://travelclub-agencia-test.herokuapp.com/agency/traveldelta/ /;
+			proxy_redirect http://travelclub-agencia-test.herokuapp.com/ /;
 		}
 	}
 }
