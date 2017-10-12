@@ -87,10 +87,6 @@ http {
 		server travelclub-hypertext-test.herokuapp.com;
 	}
 	
-	upstream us_traveldelta {
-		server travelclub-agencia-test.herokuapp.com;
-	}
-	
 	server {
 		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
@@ -497,9 +493,10 @@ http {
 		listen <%= ENV['PORT'] %>;
 		server_name www.traveldelta.cl;
 
-		location / {
-			proxy_pass http://us_traveldelta;
-			proxy_redirect http://travelclub-agencia-test.herokuapp.com/ /;
+		location = / {
+			rewrite ^/$ /agency/traveldelta break;
+			proxy_set_header Host travelclub-agencia-test.herokuapp.com;
+			proxy_pass http://us_vol3_test; 
 		}
 	}
 }
