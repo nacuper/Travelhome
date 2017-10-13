@@ -509,7 +509,19 @@ http {
 			proxy_redirect http://travelclub-agencia-test.herokuapp.com/ /;
 		}
 		
-		location ~* ^/(checkout|flights|public-vol3|vol3) {
+		location /flights {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+			proxy_pass http://us_vol3_test;
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
+		
+		location /public-vol3 {
+			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
+			proxy_pass http://us_vol3_test;
+			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
+		
+		location /checkout {
 			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
 			proxy_pass http://us_vol3_test;
 			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
