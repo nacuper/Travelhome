@@ -91,6 +91,10 @@ http {
 		server travelclub-agencia-test.herokuapp.com;
 	}
 	
+	upstream us_travel_test {
+		server programatravel-staging.herokuapp.com;
+	}
+	
 	server {
 		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
@@ -530,6 +534,21 @@ http {
 			proxy_set_header Host travelclub-hypertext-test.herokuapp.com;
 			proxy_pass http://us_vol3_test;
 			proxy_redirect http://travelclub-hypertext-test.herokuapp.com/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name www.travelpay.cl;
+
+		if ($http_x_forwarded_proto != 'https') { 
+			return 301 https://$server_name$request_uri;
+		}
+		
+		location = / {
+			proxy_set_header Host programatravel-staging.herokuapp.com;
+			proxy_pass http://us_travel_test;
+			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
 		}
 	}
 }
