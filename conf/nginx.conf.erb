@@ -551,25 +551,7 @@ http {
 			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
 		}
 		
-		location = /css {
-			proxy_set_header Host programatravel-staging.herokuapp.com;
-			proxy_pass http://us_travel_test;
-			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
-		}
-		
-		location = /img {
-			proxy_set_header Host programatravel-staging.herokuapp.com;
-			proxy_pass http://us_travel_test;
-			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
-		}
-		
-		location = /sliders {
-			proxy_set_header Host programatravel-staging.herokuapp.com;
-			proxy_pass http://us_travel_test;
-			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
-		}
-		
-		location = /js {
+		location ~* ^/(css|img|sliders|js) {
 			proxy_set_header Host programatravel-staging.herokuapp.com;
 			proxy_pass http://us_travel_test;
 			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
