@@ -557,7 +557,7 @@ http {
 			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
 		}
 		
-		location ~* ^/(conoce_tu_programa|preguntas_frecuentes|reglamento|sucursales) {
+		location ~* ^/(conoce_tu_programa|preguntas_frecuentes|reglamento|sucursales|index) {
 			proxy_set_header Host programatravel-staging.herokuapp.com;
 			proxy_pass http://us_travel_test;
 			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
