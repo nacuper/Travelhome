@@ -87,6 +87,10 @@ http {
 		server travelclub-hypertext-test.herokuapp.com;
 	}
 	
+	upstream us_travel {
+		server programatravel.herokuapp.com;
+	}
+	
 	server {
 		client_max_body_size 20M;
 		listen <%= ENV['PORT'] %>;
@@ -476,6 +480,33 @@ http {
 		location / {
 			proxy_pass http://us_proxy_integrator_test;
 			proxy_redirect http://186.103.204.131:8081/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name www.travel.cl;
+
+		if ($http_x_forwarded_proto != 'https') { 
+			return 301 https://$server_name$request_uri;
+		}
+		
+		location = / {
+			proxy_set_header Host programatravel.herokuapp.com;
+			proxy_pass http://us_travel;
+			proxy_redirect http://programatravel.herokuapp.com/ /;
+		}
+		
+		location ~* ^/(css|img|sliders|js|fonts) {
+			proxy_set_header Host programatravel.herokuapp.com;
+			proxy_pass http://us_travel;
+			proxy_redirect http://programatravel.herokuapp.com/ /;
+		}
+		
+		location ~* ^/(conoce_tu_programa|preguntas_frecuentes|reglamento|sucursales|index) {
+			proxy_set_header Host programatravel.herokuapp.com;
+			proxy_pass http://us_travel;
+			proxy_redirect http://programatravel.herokuapp.com/ /;
 		}
 	}
 }
