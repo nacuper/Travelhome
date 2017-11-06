@@ -546,21 +546,15 @@ http {
 		}
 		
 		location = / {
-			proxy_set_header Host programatravel-staging.herokuapp.com;
-			proxy_pass http://us_travel_test;
-			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
+			rewrite ^/$ /agency/travelclub break;
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera; 
 		}
-		
-		location ~* ^/(css|img|sliders|js|fonts) {
-			proxy_set_header Host programatravel-staging.herokuapp.com;
-			proxy_pass http://us_travel_test;
-			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
-		}
-		
-		location ~* ^/(conoce_tu_programa|preguntas_frecuentes|reglamento|sucursales|index) {
-			proxy_set_header Host programatravel-staging.herokuapp.com;
-			proxy_pass http://us_travel_test;
-			proxy_redirect http://programatravel-staging.herokuapp.com/ /;
+			
+		location ~* ^/(public) {
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera;
+			proxy_redirect http://latercera.herokuapp.com/ /;
 		}
 	}
 }
