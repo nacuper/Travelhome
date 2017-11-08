@@ -509,4 +509,44 @@ http {
 			proxy_redirect http://programatravel.herokuapp.com/ /;
 		}
 	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name www.traveldelta.cl;
+
+		location = / {
+			rewrite ^/$ /agency/traveldelta break;
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera; 
+		}
+			
+		location ~* ^/(public) {
+			proxy_set_header Host latercera.herokuapp.com;
+			proxy_pass http://us_latercera;
+			proxy_redirect http://latercera.herokuapp.com/ /;
+		}
+	}
+	
+	server {
+		listen <%= ENV['PORT'] %>;
+		server_name viajes.traveldelta.cl;
+
+		location /flights {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
+		}
+		
+		location /public-vol3 {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
+		}
+		
+		location /checkout {
+			proxy_set_header Host travelclub-hypertext.herokuapp.com;
+			proxy_pass http://us_vol3;
+			proxy_redirect http://travelclub-hypertext.herokuapp.com/ /;
+		}
+	}
 }
